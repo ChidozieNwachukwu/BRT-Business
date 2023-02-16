@@ -1,0 +1,41 @@
+--Top 5 arrival locations sorted in descending order--
+select arrival_location,
+count(arrival_location)
+from brt.trips
+group by trips.arrival_location
+order by count(trips.arrival_location) desc
+limit 5
+
+--Top 10 performing drivers in descending order--
+select drivers.first_name,
+drivers.last_name,
+drivers.national_identity_number,
+count(trips.id) as number_of_trips
+from brt.drivers
+join brt.trips
+on drivers.id = trips.driver_id
+group by drivers.id
+order by number_of_trips desc
+limit 10
+
+--Frequent passengers: Top 10 passengers--
+select passengers.first_name,
+passengers.last_name,
+passengers.email_address,
+count(passenger_trips.trip_id) as number_of_trips
+from brt.passengers
+join brt.passenger_trips
+on passengers.id = passenger_trips.passenger_id
+group by passengers.id
+order by number_of_trips desc
+limit 10
+
+
+
+
+
+
+
+
+
+
